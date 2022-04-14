@@ -1,0 +1,6 @@
+package.json
+.gitlab-ci.yml
+build/
+dist/
+*.sass
+package.json

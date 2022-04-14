@@ -1,0 +1,82 @@
+{
+  "name": "chakraui-weather-app",
+  "version": "1.0.0",
+  "description": "React app using Chakra UI and OpenWeatherMap API",
+  "main": "src/index.tsx",
+  "author": "Daniel Sousa @TutoDS",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "webpack --config webpack.config.js --env env=production",
+    "dev": "webpack server --config webpack.config.js --env env=development",
+    "lint": "eslint --fix \"./src/**/*.{tsx,ts,js,jsx,json,css,scss,md}\"",
+    "format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "prepare": "husky install && npx husky add .husky/pre-commit \"npx lint-staged\""
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^1.8.8",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "axios": "^0.26.1",
+    "date-fns": "^2.28.0",
+    "framer-motion": "^6",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1",
+    "react-router-dom": "^6.3.0",
+    "sass": "^1.50.0",
+    "swiper": "^8.1.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.0",
+    "@babel/core": "^7.17.2",
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
+    "@babel/runtime": "^7.17.2",
+    "@types/country-list": "^2.1.0",
+    "@types/react": "^17.0.39",
+    "@types/react-dom": "^17.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.14.0",
+    "@typescript-eslint/parser": "^5.14.0",
+    "babel-loader": "^8.2.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.6.0",
+    "dotenv-webpack": "^7.1.0",
+    "eslint": "^8.10.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.29.3",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "html-webpack-plugin": "^5.5.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.3",
+    "prettier": "^2.5.1",
+    "rimraf": "^3.0.2",
+    "sass-loader": "^12.4.0",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.2.6",
+    "tsconfig-paths-webpack-plugin": "^3.5.2",
+    "typescript": "^4.5.5",
+    "webpack": "^5.68.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
+  },
+  "lint-staged": {
+    "./src/**/*.{js,ts,json,scss,css,md,html,tsx,jsx}": [
+      "prettier --write ."
+    ],
+    "./src/**/*.{js,ts,json,tsx,jsx}": [
+      "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\""
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "echo \"[Format & Lint]\" && lint-staged"
+    }
+  }
+}
