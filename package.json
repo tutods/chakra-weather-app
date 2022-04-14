@@ -11,8 +11,8 @@
     "build": "webpack --config webpack.config.js --env env=production",
     "dev": "webpack server --config webpack.config.js --env env=development",
     "lint": "eslint --fix \"./src/**/*.{tsx,ts,js,jsx,json,css,scss,md}\"",
-    "format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
-    "prepare": "husky install && npx husky add .husky/pre-commit \"npx lint-staged\""
+    "format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
+
   },
   "dependencies": {
     "@chakra-ui/react": "^1.8.8",
