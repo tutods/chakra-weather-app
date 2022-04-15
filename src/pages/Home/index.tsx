@@ -1,4 +1,5 @@
 import {
+	Box,
 	Button,
 	Container,
 	Flex,
@@ -7,6 +8,7 @@ import {
 	SimpleGrid,
 	useDisclosure
 } from '@chakra-ui/react';
+import sunnyBackground from 'assets/media/backgrounds/sunny.jpg';
 import WeatherCard from 'components/cards/Weather';
 import AddCityDrawer from 'components/drawers/AddCity';
 import { WeatherContext } from 'contexts/WeatherContext';
@@ -20,37 +22,53 @@ const Home = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	return (
-		<Container as={'main'} maxW={'container.lg'}>
-			<Flex
-				as={'section'}
-				gap={2}
-				alignItems={'center'}
-				justifyContent={'space-between'}
-				my={4}
+		<main>
+			<Box
+				paddingY={6}
+				backgroundImage={sunnyBackground}
+				backgroundPosition={'center'}
+				backgroundSize={'cover'}
+				backgroundColor={'blackAlpha.700'}
+				backgroundBlendMode={'overlay'}
+				as={Flex}
+				flexDir={'column'}
+				justifyContent={'center'}
+				height={'400px'}
 			>
-				<Heading as={'h1'} fontSize={'4xl'} fontWeight={'bold'}>
-					Tracked Cities
-				</Heading>
+				<Container maxW={'container.lg'}>
+					<Heading as={'h1'} fontWeight={'bold'} fontSize={'4xl'} color={'white'}>
+						Tracked Cities
+					</Heading>
+					<Heading as={'h2'} fontWeight={400} fontSize={'2xl'} color={'white'}>
+						All the cities you are saved to see the weather!
+					</Heading>
 
-				<Button
-					onClick={onOpen}
-					leftIcon={<Icon as={BsPlusLg} fontSize={'14px'} />}
-					colorScheme={'primary'}
-				>
-					Add City
-				</Button>
+					<Button
+						onClick={onOpen}
+						leftIcon={<Icon as={BsPlusLg} fontSize={'14px'} />}
+						mt={10}
+						colorScheme={'secondary'}
+					>
+						Add City
+					</Button>
 
-				<AddCityDrawer isOpen={isOpen} onClose={onClose} />
-			</Flex>
-
-			{cities.length > 0 && (
-				<SimpleGrid columns={[1, 2, 3]} spacing={2}>
-					{cities.map((city) => (
-						<WeatherCard city={city} key={city.name} />
-					))}
-				</SimpleGrid>
-			)}
-		</Container>
+					<AddCityDrawer isOpen={isOpen} onClose={onClose} />
+				</Container>
+			</Box>
+			<Container as={'section'} maxW={'container.lg'} py={10}>
+				{cities.length > 0 ? (
+					<SimpleGrid columns={[1, 2, 3]} spacing={2}>
+						{cities.map((city) => (
+							<WeatherCard city={city} key={city.name} />
+						))}
+					</SimpleGrid>
+				) : (
+					<Heading as={'h3'} fontSize={'xl'} textAlign={'center'} fontWeight={'regular'}>
+						Please add at least one city to track!
+					</Heading>
+				)}
+			</Container>
+		</main>
 	);
 };
 
