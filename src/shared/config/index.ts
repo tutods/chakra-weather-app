@@ -1,7 +1,5 @@
 import { ConfigType } from 'shared/@types/Config';
 
-console.log(process.env.WEATHER_API_KEY);
-
 const config: ConfigType = {
 	countriesApi: {
 		url: process.env.COUNTRIES_API || ''

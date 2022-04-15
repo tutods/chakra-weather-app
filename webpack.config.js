@@ -44,8 +44,6 @@ module.exports = () => {
 		},
 		plugins: [
 			new Dotenv({
-				expand: true,
-				defaults: false,
 				systemvars: true,
 				allowEmptyValues: false
 			}),
