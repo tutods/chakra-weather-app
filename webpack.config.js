@@ -53,7 +53,7 @@ module.exports = () => {
 			new CleanWebpackPlugin()
 		],
 		devServer: {
-			historyApiFallback: true,
+			historyApiFallback: { index: '/', disableDotRule: true },
 			port: 3000,
 			open: false,
 			compress: true,
