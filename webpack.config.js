@@ -46,7 +46,7 @@ module.exports = () => {
 			new Dotenv({
 				expand: true,
 				defaults: false,
-				systemvars: false,
+				systemvars: true,
 				allowEmptyValues: false
 			}),
 			new HtmlWebpackPlugin({
