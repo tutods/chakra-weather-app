@@ -8,8 +8,8 @@
 	"private": false,
 	"scripts": {
 		"prebuild": "rimraf dist",
-		"build": "webpack --config webpack.config.js --env env=production",
-		"dev": "webpack server --config webpack.config.js --env env=development",
+		"build": "webpack --config webpack.config.js",
+		"dev": "webpack server --config webpack.config.js",
 		"lint": "eslint --fix \"./src/**/*.{tsx,ts,js,jsx,json,css,scss,md}\"",
 		"format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
 		"prepare": "husky install && npx husky add .husky/pre-commit \"npx lint-staged\""

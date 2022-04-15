@@ -39,6 +39,8 @@ module.exports = {
 		'react-hooks/rules-of-hooks': 'error',
 		'react-hooks/exhaustive-deps': 'warn',
 		'react/prop-types': 'off',
+		'react/jsx-uses-react': 'off',
+		'react/react-in-jsx-scope': 'off',
 		'jsx-a11y/accessible-emoji': 'off',
 		'@typescript-eslint/explicit-function-return-type': 'off',
 		'simple-import-sort/imports': 'error',
