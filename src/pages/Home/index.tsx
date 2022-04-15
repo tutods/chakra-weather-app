@@ -47,7 +47,6 @@ const Home = () => {
 						onClick={onOpen}
 						leftIcon={<Icon as={BsPlusLg} fontSize={'14px'} />}
 						mt={10}
-						colorScheme={'secondary'}
 					>
 						Add City
 					</Button>
