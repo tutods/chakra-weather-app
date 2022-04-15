@@ -11,7 +11,7 @@ import {
 	MenuList,
 	Text,
 	Tooltip,
-	useColorModeValue,
+	useColorMode,
 	useDisclosure,
 	useToast
 } from '@chakra-ui/react';
@@ -31,6 +31,7 @@ type Props = {
 };
 
 const WeatherCard = ({ city, ...props }: Props) => {
+	const { colorMode } = useColorMode();
 	const toast = useToast();
 
 	const [weather, setWeather] = useState<CurrentWeatherType>();
@@ -113,7 +114,7 @@ const WeatherCard = ({ city, ...props }: Props) => {
 							>
 								<Icon as={IoEllipsisVertical} />
 							</MenuButton>
-							<MenuList color={useColorModeValue('gray.900', 'gray.200')}>
+							<MenuList color={colorMode === 'dark' ? 'gray.200' : 'gray.900'}>
 								<MenuItem
 									as={Link}
 									to={`/${city.country.toLowerCase()}/${city.name.toLowerCase()}`}
