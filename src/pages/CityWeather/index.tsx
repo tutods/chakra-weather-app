@@ -9,7 +9,7 @@ import {
 	GridItem,
 	Heading,
 	Text,
-	useColorModeValue,
+	useColorMode,
 	useToast
 } from '@chakra-ui/react';
 import sunnyBackground from 'assets/media/backgrounds/sunny.jpg';
@@ -30,6 +30,7 @@ const CityWeather = () => {
 	let { country, city } = useParams();
 
 	const toast = useToast();
+	const { colorMode } = useColorMode();
 
 	// States
 	const [currentCity, setCurrentCity] = useState<SavedCityType>();
@@ -41,95 +42,55 @@ const CityWeather = () => {
 	// Change slides per view with screen size
 	const [slidesPerView, setSlidesPerView] = useState<number | 'auto'>(4);
 
-	const handleScreenResize = () => {
-		if (window.innerWidth < 768) {
-			setSlidesPerView(1);
-		} else if (window.innerWidth < 1024) {
-			setSlidesPerView(3);
-		} else {
-			setSlidesPerView(4);
-		}
-	};
-
 	useEffect(() => {
+		// Change slides per view with screen size
+		const handleScreenResize = () => {
+			if (window.innerWidth < 768) {
+				setSlidesPerView(1);
+			} else if (window.innerWidth < 1024) {
+				setSlidesPerView(3);
+			} else {
+				setSlidesPerView(4);
+			}
+		};
+
 		window.addEventListener('resize', handleScreenResize);
 		handleScreenResize();
 
 		return () => window.removeEventListener('resize', handleScreenResize);
 	}, []);
 
-	// Get data from API
-	const getWeatherData = async () => {
-		// If you want not allow get weather to cities without tracking, remove the comments on else if
-		if (!currentCity) {
-			return;
-		}
-		// else if (
-		// 	cities.filter(
-		// 		(savedCity) =>
-		// 			savedCity.name.includes(currentCity.name) &&
-		// 			savedCity.country === currentCity.country
-		// 	).length === 0
-		// ) {
-		// toast({
-		// 	description: "You don't have this city on your tracking list!",
-		// 	status: 'error',
-		// 	isClosable: true
-		// });
-		// 	navigate('/');
-
-		// 	return;
-		// }
-
-		setIsLoading(true);
-
-		try {
-			const data = await getOneCallCityWeather(
-				currentCity?.coordinates.lat,
-				currentCity?.coordinates.long
-			);
-
-			setWeather(data);
-		} catch (error) {
-			toast({
-				description: "Couldn't get weather data! Please try again!"
-			});
-		}
-
-		setIsLoading(false);
-	};
-
-	// Filter cities
-	const getCityInfo = async () => {
-		setIsLoading(true);
-
-		try {
-			const cityInfo: CityResponseType = await getCityCoordinates(city!, country!);
-
-			const { name, local_names, lat, lon, country: localCountry } = cityInfo[0];
-
-			// Save info on current city
-			setCurrentCity({
-				name: name || local_names.en,
-				country: localCountry,
-				coordinates: {
-					lat: lat,
-					long: lon
-				}
-			});
-		} catch (error) {
-			toast({
-				description: "Couldn't get weather data! Please try again!",
-				status: 'error',
-				isClosable: true
-			});
-		}
-
-		setIsLoading(false);
-	};
-
 	// Use Effect to get city info
 	useEffect(() => {
+		// Filter cities
+		const getCityInfo = async () => {
+			setIsLoading(true);
+
+			try {
+				const cityInfo: CityResponseType = await getCityCoordinates(city!, country!);
+
+				const { name, local_names, lat, lon, country: localCountry } = cityInfo[0];
+
+				// Save info on current city
+				setCurrentCity({
+					name: name || local_names.en,
+					country: localCountry,
+					coordinates: {
+						lat: lat,
+						long: lon
+					}
+				});
+			} catch (error) {
+				toast({
+					description: "Couldn't get weather data! Please try again!",
+					status: 'error',
+					isClosable: true
+				});
+			}
+
+			setIsLoading(false);
+		};
+
 		getCityInfo();
 
 		return () => setCurrentCity(undefined);
@@ -137,6 +98,47 @@ const CityWeather = () => {
 
 	// Use Effect to get weather data
 	useEffect(() => {
+		// Get data from API
+		const getWeatherData = async () => {
+			// If you want not allow get weather to cities without tracking, remove the comments on else if
+			if (!currentCity) {
+				return;
+			}
+			// else if (
+			// 	cities.filter(
+			// 		(savedCity) =>
+			// 			savedCity.name.includes(currentCity.name) &&
+			// 			savedCity.country === currentCity.country
+			// 	).length === 0
+			// ) {
+			// toast({
+			// 	description: "You don't have this city on your tracking list!",
+			// 	status: 'error',
+			// 	isClosable: true
+			// });
+			// 	navigate('/');
+
+			// 	return;
+			// }
+
+			setIsLoading(true);
+
+			try {
+				const data = await getOneCallCityWeather(
+					currentCity?.coordinates.lat,
+					currentCity?.coordinates.long
+				);
+
+				setWeather(data);
+			} catch (error) {
+				toast({
+					description: "Couldn't get weather data! Please try again!"
+				});
+			}
+
+			setIsLoading(false);
+		};
+
 		getWeatherData();
 
 		return () => setWeather(undefined);
@@ -192,7 +194,7 @@ const CityWeather = () => {
 								<Text
 									mt={2}
 									fontSize={'lg'}
-									color={useColorModeValue('gray.600', 'gray.400')}
+									color={colorMode === 'dark' ? 'gray.400' : 'gray.600'}
 								>
 									<strong>Note:</strong> for further details of a specific day,
 									click on the card.

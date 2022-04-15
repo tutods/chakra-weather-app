@@ -38,22 +38,25 @@ const WeatherCard = ({ city, ...props }: Props) => {
 	// Remove drawer
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
-	// API Request
-	const getWeatherData = async () => {
-		try {
-			const data = await getOneCallCityWeather(city.coordinates.lat, city.coordinates.long);
-
-			setWeather(data.current);
-		} catch (error) {
-			toast({
-				description: "Couldn't get weather data. Please try again later.",
-				status: 'error',
-				isClosable: true
-			});
-		}
-	};
-
 	useEffect(() => {
+		// API Request
+		const getWeatherData = async () => {
+			try {
+				const data = await getOneCallCityWeather(
+					city.coordinates.lat,
+					city.coordinates.long
+				);
+
+				setWeather(data.current);
+			} catch (error) {
+				toast({
+					description: "Couldn't get weather data. Please try again later.",
+					status: 'error',
+					isClosable: true
+				});
+			}
+		};
+
 		getWeatherData();
 	}, []);
 
