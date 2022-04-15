@@ -11,6 +11,7 @@ import {
 	Heading,
 	Icon,
 	IconButton,
+	useColorModeValue,
 	useToast
 } from '@chakra-ui/react';
 import { WeatherContext } from 'contexts/WeatherContext';
@@ -59,9 +60,14 @@ const RemoveCityDrawer = ({ isOpen, onClose, city, ...props }: Props) => {
 						Remove {city.name} City
 					</Heading>
 					<IconButton
-						color={'primary.500'}
 						aria-label="Close"
-						icon={<Icon as={IoClose} />}
+						onClick={onClose}
+						icon={
+							<Icon
+								as={IoClose}
+								color={useColorModeValue('primary.500', 'secondary.500')}
+							/>
+						}
 					/>
 				</DrawerHeader>
 

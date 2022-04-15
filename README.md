@@ -1,10 +1,13 @@
 <div align="center">
-<img src="./public/media/weather-app.png" width="600px" height="600px" >
+<img src="./public/media/home.png" width="auto" height="500px" >
 </div>
 
 <h1 align="center">React Weather App</h1>
 <p align="center" style="margin:0">This repository contain a <strong>React</strong> project using the <strong>Open Weather Map</strong> API.</p>
-<p align="center">This project are created to a <strong>xgeeks</strong> challenge.</p>
+<p align="center">This project are created to a <strong>xgeeks</strong> challenge.
+<br />
+<a align="center" href="https://github.com/TutoDS/react-weather-app">First Version</a>
+</p>
 
 <div align="center">
 <img alt="React" src="https://img.shields.io/badge/react-1E4174?style=for-the-badge&logo=react&logoColor=white" />
@@ -80,19 +83,19 @@ If you have interest on details about the original challenge you can see the [`a
 
 <div align="center">
 <h3 style="font-weight: 300">Homepage</h3>
-<img src="./public/media/home.png" alt="home" width="50%" />
+<img src="./public/media/home.png" alt="home" width="auto" height="600px"  />
 
 <h3 style="font-weight: 300">Add a new City</h3>
-<img src="./public/media/add-city.png" alt="add city" width="50%" />
+<img src="./public/media/add-city.png" alt="add city" width="auto" height="600px" />
 
 <h3 style="font-weight: 300">Remove one City</h3>
-<img src="./public/media/remove-city.png" alt="remove city" width="50%" />
+<img src="./public/media/remove-city.png" alt="remove city" width="auto" height="600px" />
 
 <h3 style="font-weight: 300">View City Weather for the next 7 days</h3>
-<img src="./public/media/city-weather.png" alt="city" width="50%" />
+<img src="./public/media/city-weather.png" alt="city" width="auto" height="600px" />
 
 <h3 style="font-weight: 300">View more details about specific day</h3>
-<img src="./public/media/day-details.png" alt="day details" width="50%" />
+<img src="./public/media/weather-info.png" alt="day details" width="auto" height="600px" />
 </div>
 
 <h2 style="font-weight: 300">🧾 To Do / Improvements</h2>

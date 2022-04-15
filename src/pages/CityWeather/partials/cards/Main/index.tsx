@@ -1,22 +1,5 @@
-import {
-	Box,
-	Flex,
-	Heading,
-	Icon,
-	IconButton,
-	Image,
-	Menu,
-	MenuButton,
-	MenuItem,
-	MenuList,
-	Text,
-	Tooltip,
-	useColorModeValue,
-	useDisclosure
-} from '@chakra-ui/react';
+import { Box, Flex, Heading, Image, Text, Tooltip, useDisclosure } from '@chakra-ui/react';
 import cardBackground from 'assets/media/backgrounds/mountain.jpg';
-import RemoveCityDrawer from 'components/drawers/RemoveCity';
-import { IoEllipsisVertical } from 'react-icons/io5';
 import { SavedCityType } from 'shared/@types/WeatherContext';
 import { CurrentWeatherType } from 'shared/@types/WeatherResponse';
 import { getWeatherIcon } from 'shared/services/weather/service';
@@ -32,9 +15,6 @@ type Props = {
 };
 
 const MainWeatherCard = ({ city, weather }: Props) => {
-	// Remove drawer
-	const { isOpen: isDrawerOpen, onOpen: onDrawerOpen, onClose: onDrawerClose } = useDisclosure();
-
 	// Info Modal
 	const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure();
 
@@ -53,6 +33,8 @@ const MainWeatherCard = ({ city, weather }: Props) => {
 			borderRadius={'10px'}
 			color={'white'}
 			boxShadow={'lg'}
+			cursor={'pointer'}
+			onClick={onModalOpen}
 		>
 			<Box
 				position={'relative'}
@@ -65,36 +47,6 @@ const MainWeatherCard = ({ city, weather }: Props) => {
 				color={'white'}
 				textAlign={'center'}
 			>
-				<Menu>
-					<MenuButton
-						as={IconButton}
-						backgroundColor={'transparent'}
-						_hover={{
-							backgroundColor: 'transparent'
-						}}
-						_expanded={{
-							backgroundColor: 'transparent'
-						}}
-						_active={{ backgroundColor: 'transparent' }}
-						_focus={{
-							backgroundColor: 'transparent'
-						}}
-						outlineColor={'transparent'}
-						aria-label="Weather Card Options"
-						position={'absolute'}
-						top={4}
-						right={4}
-						color={'white'}
-					>
-						<Icon as={IoEllipsisVertical} />
-					</MenuButton>
-					<MenuList color={useColorModeValue('gray.900', 'gray.200')}>
-						<MenuItem onClick={onModalOpen}>View Weather</MenuItem>
-						<MenuItem onClick={onDrawerOpen}>Remove City</MenuItem>
-					</MenuList>
-				</Menu>
-
-				<RemoveCityDrawer city={city} isOpen={isDrawerOpen} onClose={onDrawerClose} />
 				<WeatherInfoModal
 					weather={getInfoFromCurrent(weather)}
 					isOpen={isModalOpen}

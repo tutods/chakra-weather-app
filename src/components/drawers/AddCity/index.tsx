@@ -14,11 +14,12 @@ import {
 	Icon,
 	IconButton,
 	Select,
+	useColorModeValue,
 	useToast
 } from '@chakra-ui/react';
 import { CountriesContext } from 'contexts/CountriesContext';
 import { WeatherContext } from 'contexts/WeatherContext';
-import { ChangeEvent, useContext, useState } from 'react';
+import { ChangeEvent, FormEvent, useContext, useState } from 'react';
 import { IoClose, IoSave } from 'react-icons/io5';
 import { SavedCityType } from 'shared/@types/WeatherContext';
 
@@ -53,7 +54,9 @@ const AddCityDrawer = ({ isOpen, onClose, ...props }: Props) => {
 	};
 
 	// Handle submit the values
-	const handleSubmit = () => {
+	const handleSubmit = (evt: FormEvent) => {
+		evt.preventDefault();
+
 		if (!data.country || !data.name) {
 			toast({
 				description: `Please fill the city and the country field`,
@@ -90,65 +93,79 @@ const AddCityDrawer = ({ isOpen, onClose, ...props }: Props) => {
 	return (
 		<Drawer isOpen={isOpen} placement={'right'} onClose={onClose} {...props} size={'md'}>
 			<DrawerOverlay />
+
 			<DrawerContent>
 				<DrawerHeader as={Flex} alignItems={'center'} justifyContent={'space-between'}>
 					<Heading as={'h3'} fontSize={'md'} fontWeight={'bold'}>
 						Add City
 					</Heading>
 					<IconButton
-						color={'primary.500'}
-						aria-label="Close"
-						icon={<Icon as={IoClose} />}
+						aria-label={'Close'}
+						onClick={onClose}
+						icon={
+							<Icon
+								as={IoClose}
+								color={useColorModeValue('primary.500', 'secondary.500')}
+							/>
+						}
 					/>
 				</DrawerHeader>
-
 				<DrawerBody as={Flex} flexDir={'column'} gap={4}>
-					<FormControl>
-						<FormLabel htmlFor="country">Country</FormLabel>
-						<Select
-							onChange={handleInputChange}
-							name={'country'}
-							variant="filled"
-							placeholder="Select a country"
-						>
-							{countries.map((country) => (
-								<option key={country.iso2} value={country.iso2}>
-									{country.country}
-								</option>
-							))}
-						</Select>
-					</FormControl>
+					<form onSubmit={handleSubmit} id="add-form">
+						<FormControl>
+							<FormLabel htmlFor="country">Country</FormLabel>
+							<Select
+								onChange={handleInputChange}
+								name={'country'}
+								variant="filled"
+								placeholder="Select a country"
+							>
+								{countries.map((country) => (
+									<option key={country.iso2} value={country.iso2}>
+										{country.country}
+									</option>
+								))}
+							</Select>
+						</FormControl>
 
-					<FormControl>
-						<FormLabel htmlFor="city">City</FormLabel>
-						<Select
-							disabled={!data.country}
-							onChange={handleInputChange}
-							name={'name'}
-							variant="filled"
-							placeholder="Select a city"
-						>
-							{countries.filter((country) => country.iso2 === data.country).length >
-								0 &&
-								countries
-									.filter((country) => country.iso2 === data.country)[0]
-									.cities.map((city) => (
-										<option key={city} value={city}>
-											{city}
-										</option>
-									))}
-						</Select>
-					</FormControl>
+						<FormControl>
+							<FormLabel htmlFor="city">City</FormLabel>
+							<Select
+								disabled={!data.country}
+								onChange={handleInputChange}
+								name={'name'}
+								variant="filled"
+								placeholder="Select a city"
+							>
+								{countries.filter((country) => country.iso2 === data.country)
+									.length > 0 &&
+									countries
+										.filter((country) => country.iso2 === data.country)[0]
+										.cities.map((city) => (
+											<option key={city} value={city}>
+												{city}
+											</option>
+										))}
+							</Select>
+						</FormControl>
+					</form>
 				</DrawerBody>
 
 				<DrawerFooter as={Flex} gap={2} alignItems={'center'} justifyContent={'flex-end'}>
-					<Button variant="outline" onClick={onClose} leftIcon={<Icon as={IoClose} />}>
+					<Button
+						type={'button'}
+						variant="outline"
+						onClick={onClose}
+						leftIcon={<Icon as={IoClose} />}
+					>
 						Cancel
 					</Button>
 					<Button
 						disabled={!data.country || !data.name}
-						onClick={handleSubmit}
-						colorScheme={'primary'}
+						type={'submit'}
+						form={'add-form'}
+						F
+						colorScheme={useColorModeValue('primary', 'secondary')}
 						leftIcon={<Icon as={IoSave} />}
 					>
 						Save

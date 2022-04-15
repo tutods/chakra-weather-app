@@ -3,6 +3,7 @@ import 'swiper/css/navigation';
 
 import {
 	Box,
+	Button,
 	Container,
 	Flex,
 	Grid,
@@ -10,9 +11,11 @@ import {
 	Heading,
 	Text,
 	useColorMode,
+	useDisclosure,
 	useToast
 } from '@chakra-ui/react';
 import sunnyBackground from 'assets/media/backgrounds/sunny.jpg';
+import RemoveCityDrawer from 'components/drawers/RemoveCity';
 import Loading from 'components/Loading';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -31,6 +34,9 @@ const CityWeather = () => {
 
 	const toast = useToast();
 	const { colorMode } = useColorMode();
+
+	// Remove drawer
+	const { isOpen: isDrawerOpen, onOpen: onDrawerOpen, onClose: onDrawerClose } = useDisclosure();
 
 	// States
 	const [currentCity, setCurrentCity] = useState<SavedCityType>();
@@ -167,6 +173,10 @@ const CityWeather = () => {
 							<Heading as={'h2'} fontWeight={400} fontSize={'2xl'} color={'white'}>
 								Weather for the next <strong>7 days</strong>
 							</Heading>
+
+							<Button mt={6} onClick={onDrawerOpen}>
+								Remove City
+							</Button>
 						</>
 					) : (
 						<>
@@ -191,35 +201,45 @@ const CityWeather = () => {
 					{isLoading && <Loading />}
 
 					{!isLoading && currentCity && weather && (
-						<Grid templateColumns={['2fr', '2fr', '4fr 8fr']} gap={4}>
-							<GridItem zIndex={5}>
-								<MainWeatherCard city={currentCity} weather={weather!.current} />
-							</GridItem>
-							<GridItem overflow={'hidden'} maxWidth={'100%'}>
-								<Swiper
-									slidesPerView={slidesPerView}
-									spaceBetween={20}
-									grabCursor
-									navigation
-									modules={[Navigation]}
-								>
-									{weather.daily.slice(1, 8).map((daily) => (
-										<SwiperSlide key={daily.dt}>
-											<DailyCard weather={daily} />
-										</SwiperSlide>
-									))}
-								</Swiper>
+						<>
+							<Grid templateColumns={['2fr', '2fr', '4fr 8fr']} gap={4}>
+								<GridItem zIndex={5}>
+									<MainWeatherCard
+										city={currentCity}
+										weather={weather!.current}
+									/>
+								</GridItem>
+								<GridItem overflow={'hidden'} maxWidth={'100%'}>
+									<Swiper
+										slidesPerView={slidesPerView}
+										spaceBetween={20}
+										grabCursor
+										navigation
+										modules={[Navigation]}
+									>
+										{weather.daily.slice(1, 8).map((daily) => (
+											<SwiperSlide key={daily.dt}>
+												<DailyCard weather={daily} />
+											</SwiperSlide>
+										))}
+									</Swiper>
 
-								<Text
-									mt={2}
-									fontSize={'lg'}
-									color={colorMode === 'dark' ? 'gray.400' : 'gray.600'}
-								>
-									<strong>Note:</strong> for further details of a specific day,
-									click on the card.
-								</Text>
-							</GridItem>
-						</Grid>
+									<Text
+										mt={2}
+										fontSize={'lg'}
+										color={colorMode === 'dark' ? 'gray.400' : 'gray.600'}
+									>
+										<strong>Note:</strong> for further details of a specific
+										day, click on the card.
+									</Text>
+								</GridItem>
+							</Grid>
+							<RemoveCityDrawer
+								isOpen={isDrawerOpen}
+								onClose={onDrawerClose}
+								city={currentCity}
+							/>
+						</>
 					)}
 				</Flex>
 			</Container>
