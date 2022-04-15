@@ -159,12 +159,31 @@ const CityWeather = () => {
 				height={'400px'}
 			>
 				<Container maxW={'container.lg'}>
-					<Heading as={'h1'} fontWeight={'bold'} fontSize={'4xl'} color={'white'}>
-						{currentCity?.name}
-					</Heading>
-					<Heading as={'h2'} fontWeight={400} fontSize={'2xl'} color={'white'}>
-						Weather for the next <strong>7 days</strong>
-					</Heading>
+					{currentCity && weather ? (
+						<>
+							<Heading as={'h1'} fontWeight={'bold'} fontSize={'4xl'} color={'white'}>
+								{currentCity?.name}
+							</Heading>
+							<Heading as={'h2'} fontWeight={400} fontSize={'2xl'} color={'white'}>
+								Weather for the next <strong>7 days</strong>
+							</Heading>
+						</>
+					) : (
+						<>
+							<Heading
+								as={'h1'}
+								fontWeight={'bold'}
+								fontSize={'4xl'}
+								color={'white'}
+								textTransform={'capitalize'}
+							>
+								{city}
+							</Heading>
+							<Heading as={'h2'} fontWeight={400} fontSize={'2xl'} color={'white'}>
+								We can&apos;t show the weather for this city!
+							</Heading>
+						</>
+					)}
 				</Container>
 			</Box>
 			<Container maxW={'container.lg'} py={6}>

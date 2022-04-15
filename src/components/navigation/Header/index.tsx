@@ -9,6 +9,7 @@ import {
 	useDisclosure
 } from '@chakra-ui/react';
 import { BiMenuAltRight, BiX } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
 
 import DrawerMenu from '../DrawerMenu';
 
@@ -31,7 +32,7 @@ const Header = () => {
 				alignItems={'center'}
 				justifyContent={'space-between'}
 			>
-				<Heading fontWeight={'bold'} fontSize={'lg'}>
+				<Heading as={Link} to={'/'} fontWeight={'bold'} fontSize={'lg'}>
 					Weather App
 				</Heading>
 
