@@ -110,8 +110,14 @@ const AddCityDrawer = ({ isOpen, onClose, ...props }: Props) => {
 						}
 					/>
 				</DrawerHeader>
-				<DrawerBody as={Flex} flexDir={'column'} gap={4}>
-					<form onSubmit={handleSubmit} id="add-form">
+				<DrawerBody>
+					<Flex
+						as={'form'}
+						onSubmit={handleSubmit}
+						id={'add-form'}
+						flexDir={'column'}
+						gap={4}
+					>
 						<FormControl>
 							<FormLabel htmlFor="country">Country</FormLabel>
 							<Select
@@ -148,7 +154,7 @@ const AddCityDrawer = ({ isOpen, onClose, ...props }: Props) => {
 										))}
 							</Select>
 						</FormControl>
-					</form>
+					</Flex>
 				</DrawerBody>
 
 				<DrawerFooter as={Flex} gap={2} alignItems={'center'} justifyContent={'flex-end'}>
@@ -164,7 +170,6 @@ const AddCityDrawer = ({ isOpen, onClose, ...props }: Props) => {
 						disabled={!data.country || !data.name}
 						type={'submit'}
 						form={'add-form'}
-						F
 						colorScheme={useColorModeValue('primary', 'secondary')}
 						leftIcon={<Icon as={IoSave} />}
 					>
