@@ -9,5 +9,8 @@ services:
       - .:/usr/app
       - /usr/app/node_modules
 
+    env_file:
+      - .env # Path to ENV file
+
     ports:
       - 3001:3000
